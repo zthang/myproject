@@ -12,7 +12,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 /**用于token的生成
  */
 
-public class JwtHelper {
+public class JwtHelper
+{
     private Long EXPIRATION_TIME;
     private String SECRET;
     private final String TOKEN_PREFIX = "Bearer";
