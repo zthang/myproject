@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8787
 
 spring:
     datasource:
@@ -10,7 +10,7 @@ spring:
             #监控统计拦截的filters
             filters: stat
             driver-class-name: com.mysql.cj.jdbc.Driver
-            url: jdbc:mysql://10.60.38.173:3306/test?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+            url: jdbc:mysql://47.103.217.165:3306/bigProject?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
             username: root
             password: 123456
             #配置初始化大小/最小/最大
@@ -54,3 +54,11 @@ async.executor.thread:
     queue_capacity : 99999
     # 配置线程池中的线程的名称前缀
     name.prefix : async-service-
+
+#jwt配置
+# 加密yan
+jwt.secret : A0B1C2D3E4F5G6H7I8J9KALBMCNDOEPFQ0R1S2T3U4V5W6X7Y8Z9
+# tocken 过期时间，单位秒
+jwt.expire : 300
+# 需要认证的url，多个URL使用英文逗号,分割
+jwt.authorised-urls : /api/**

@@ -9,10 +9,8 @@ public class User
 {
     @JsonProperty(value = "userID")
     private Integer userID;
-    @JsonProperty(value = "nickname")
-    private String nickname;
-    @JsonProperty(value = "avatar")
-    private String avatar;
-    @JsonProperty(value = "authority")
-    private String authority;
+    @JsonProperty(value = "username")
+    private String username;
+    @JsonProperty(value = "password")
+    private String password;
 }
