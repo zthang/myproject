@@ -3,6 +3,7 @@ package com.tju.myproject.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSONObject;
 import com.tju.myproject.entity.ResultEntity;
 import com.tju.myproject.entity.User;
 import com.tju.myproject.service.UserService;
@@ -35,7 +36,9 @@ public class AuthorizeController
         {
             if (temp.getPassword().equals(DigestUtils.md5DigestAsHex(password.getBytes())))
             {
-                return new ResultEntity(200,"登录成功!",jwtHelper.generateToken(claims));
+                JSONObject data = jwtHelper.generateToken(claims);
+                data.put("userID",temp.getUserID());
+                return new ResultEntity(200,"登录成功!",data);
             }
             else
             {
