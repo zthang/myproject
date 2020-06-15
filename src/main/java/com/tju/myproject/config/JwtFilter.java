@@ -52,14 +52,17 @@ public class JwtFilter implements Filter {
         // 验证受保护的接口
         for (String url : urls) {
             if (pathMatcher.match(url, spath)) {
-                Object token = jwtHelper.validateTokenAndGetClaims(httpRequest);
+                Map<String, Object> token = jwtHelper.validateTokenAndGetClaims(httpRequest);
                 HttpSession session = httpRequest.getSession();
-                if (token != null) {
-                    session.setAttribute("loginName", ((Map) token).get("loginName"));          //将用户名放在session中
+                if (token != null && !token.containsKey("error")) {
+                    session.setAttribute("loginName", token.get("loginName"));          //将用户名放在session中
                     chain.doFilter(request, response);
                     return;
+                }else if(token == null){
+                    httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "token为空");
+                    return;
                 }else{
-                    httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "无token或者token已经过期");
+                    httpResponse.sendError(Integer.parseInt(token.get("error").toString())==1?20001:20002, Integer.parseInt(token.get("error").toString())==1?"登陆超时，请重新登陆":"token格式错误");
                     return;
                 }
             }else{

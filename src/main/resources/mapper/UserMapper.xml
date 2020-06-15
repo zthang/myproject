@@ -7,14 +7,20 @@
         <result column="user_id" property="userID"/>
         <result column="username" property="username"/>
         <result column="password" property="password"/>
+        <result column="role" property="role"/>
     </resultMap>
     <insert id="addUser"  useGeneratedKeys="true" keyProperty="userID">
         INSERT INTO user_info
-        SET username=#{user.username},password=#{user.password}
+        SET username=#{user.username},password=#{user.password},role=0
     </insert>
     <select id="getUserByUsername" resultMap="userInfoMap">
-        SELECT user_id,username,password
+        SELECT user_id,username,password,role
         FROM user_info
         WHERE username=#{username}
+    </select>
+    <select id="getUserByUserID" resultMap="userInfoMap">
+        SELECT user_id,username,role
+        FROM user_info
+        WHERE user_id=#{userID}
     </select>
 </mapper>

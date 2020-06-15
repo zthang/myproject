@@ -3,6 +3,7 @@ package com.tju.myproject.utils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import com.alibaba.fastjson.JSONObject;
@@ -57,7 +58,9 @@ public class JwtHelper
         }
         catch (Exception e)
         {
-            return null;
+            Map<String, Object> resMap=new HashMap<>();
+            resMap.put("error",e.getClass().getName().equals("io.jsonwebtoken.ExpiredJwtException")?1:2);
+            return resMap;
         }
     }
 }

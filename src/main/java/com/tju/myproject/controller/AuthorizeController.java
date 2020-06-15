@@ -38,6 +38,7 @@ public class AuthorizeController
             {
                 JSONObject data = jwtHelper.generateToken(claims);
                 data.put("userID",temp.getUserID());
+                data.put("role",temp.getRole());
                 return new ResultEntity(200,"登录成功!",data);
             }
             else
